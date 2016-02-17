@@ -1,49 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
 using HQF.Tutorial.WebAPI.Swagger.Models;
 
 namespace HQF.Tutorial.WebAPI.Swagger.Repositories
 {
     public class CustomerRepository
     {
+        private static bool _loaded;
         private static IEnumerable<Customer> Customers { get; set; }
-        private static bool _loaded = false;
+
+        static CustomerRepository()
+        {
+            LoadCustomers();
+        }
+
         public static bool LoadCustomers()
         {
-            Customers=new List<Customer>()
+            var customers = new List<Customer>();
+            customers.Add(new Customer
             {
-                new Customer()
-                {
-                    FirstName = "Li",
-                    LastName = "huo",
-                    City = "Beijing"
-                },
-                 new Customer()
-                {
-                    FirstName = "Li",
-                    LastName = "LI",
-                    City = "Beijing"
-                }
-            };
+                FirstName = "Li",
+                LastName = "huo",
+                Email = "1@test.com",
+                City = "Beijing"
+            });
+            customers.Add(new Customer
+            {
+                FirstName = "Li",
+                LastName = "LI",
+                Email = "2@test.com",
+                City = "Beijing"
+            });
+
+            Customers = customers;
             //string path = System.String.Format(@"{0}App_Data\us-500.csv", System.AppDomain.CurrentDomain.BaseDirectory);
             //using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             //{
             //    try
             //    {
-                    //var cs = new CsvSerializer<Customer>()
-                    //{
-                    //    UseTextQualifier = false,
-                    //    Separator = ',',
-                    //    RowSeparator = "\n",
-                    //    UseLineNumbers = false,
-                    //    ColumnsContainedInHeader = true
-                    //};
+            //var cs = new CsvSerializer<Customer>()
+            //{
+            //    UseTextQualifier = false,
+            //    Separator = ',',
+            //    RowSeparator = "\n",
+            //    UseLineNumbers = false,
+            //    ColumnsContainedInHeader = true
+            //};
 
-                    //Customers = cs.Deserialize(stream);
-                    _loaded = true;
+            //Customers = cs.Deserialize(stream);
+            _loaded = true;
             //    }
             //    catch
             //    { }
@@ -51,6 +57,7 @@ namespace HQF.Tutorial.WebAPI.Swagger.Repositories
 
             return _loaded;
         }
+
         public static IEnumerable<Customer> GetCustomers()
         {
             if (_loaded)
