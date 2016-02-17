@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using System.Web.Http;
 using WebActivatorEx;
 using HQF.Tutorial.WebAPI.Swagger;
@@ -12,6 +15,9 @@ namespace HQF.Tutorial.WebAPI.Swagger
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
+          
+
+            
 
             GlobalConfiguration.Configuration 
                 .EnableSwagger(c =>
@@ -96,7 +102,10 @@ namespace HQF.Tutorial.WebAPI.Swagger
                         // those comments into the generated docs and UI. You can enable this by providing the path to one or
                         // more Xml comment files.
                         //
-                        //c.IncludeXmlComments(GetXmlCommentsPath());
+                        c.IncludeXmlComments(GetXmlCommentsPath());
+                        //c.IncludeXmlComments(commentsFile);
+                        //c.IncludeXmlComments(System.Web.Hosting.HostingEnvironment.MapPath(commentsFileName));
+
 
                         // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types
                         // exposed in your API. However, there may be occasions when more control of the output is needed.
@@ -224,6 +233,14 @@ namespace HQF.Tutorial.WebAPI.Swagger
                         //
                         //c.EnableOAuth2Support("test-client-id", "test-realm", "Swagger UI");
                     });
+        }
+
+        private static string GetXmlCommentsPath()
+        {
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".XML";
+            var commentsFile = Path.Combine(baseDirectory,"bin", commentsFileName);
+            return commentsFile;
         }
     }
 }

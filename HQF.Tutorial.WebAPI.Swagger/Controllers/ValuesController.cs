@@ -11,6 +11,13 @@ namespace HQF.Tutorial.WebAPI.Swagger.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
+        /// <summary>
+        /// 获取字符串数组
+        /// </summary>
+        /// <remarks>
+        /// 测试输出
+        /// </remarks>
+        /// <returns>200 Ok </returns>
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };

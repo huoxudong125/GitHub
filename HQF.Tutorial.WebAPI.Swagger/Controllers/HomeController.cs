@@ -8,6 +8,11 @@ namespace HQF.Tutorial.WebAPI.Swagger.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// 主页
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
