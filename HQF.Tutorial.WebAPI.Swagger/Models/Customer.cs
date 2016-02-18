@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace HQF.Tutorial.WebAPI.Swagger.Models
 {
@@ -23,6 +24,7 @@ namespace HQF.Tutorial.WebAPI.Swagger.Models
         /// The last name.
         /// </value>
         [Required]
+        [JsonProperty("last_name")]
         public string LastName { get; set; }
 
         /// <summary>
